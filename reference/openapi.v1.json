@@ -8,6 +8,10 @@
     "license": {
       "name": "GPL-3.0",
       "identifier": "GPL-3.0-or-later"
+    },
+    "contact": {
+      "name": "Sumeru",
+      "url": "https://github.com/SumeruCCTV"
     }
   },
   "servers": [
@@ -20,7 +24,6 @@
     "/": {
       "get": {
         "summary": "API Information",
-        "tags": [],
         "operationId": "get-api-information",
         "description": "Returns information about the currently running Sumeru instance.",
         "security": [],
@@ -42,7 +45,7 @@
                     "application": {
                       "type": "string",
                       "example": "sumeru",
-                      "pattern": "^[A-Za-z]$",
+                      "pattern": "^[A-Za-z]*$",
                       "description": "The name of the application.",
                       "readOnly": true
                     },
@@ -66,12 +69,6 @@
                     }
                   }
                 }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
               }
             }
           }
@@ -82,7 +79,6 @@
     "/health": {
       "get": {
         "summary": "API Health",
-        "tags": [],
         "responses": {
           "200": {
             "description": "OK",
@@ -124,7 +120,7 @@
                             "type": "string",
                             "minLength": 1,
                             "description": "Name of the service.",
-                            "pattern": "^[A-Za-z]$",
+                            "pattern": "^[A-Za-z]*$",
                             "example": "web",
                             "readOnly": true
                           },
