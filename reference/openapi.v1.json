@@ -1,0 +1,31 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Sumeru API",
+    "version": "1.0",
+    "summary": "The main API of Sumeru. This is what the client will communicate with.",
+    "description": "The main API of Sumeru, a self-hosted open source NVR program.",
+    "license": {
+      "name": "GPL-3.0",
+      "identifier": "GPL-3.0-or-later"
+    }
+  },
+  "servers": [],
+  "paths": {},
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "sumeru_token": {
+        "name": "Token",
+        "type": "apiKey",
+        "in": "query",
+        "description": "Your token is used to authenticate to the API. You can get one by logging in. The server will give you a token which is valid for 2 weeks, after which you have to log back in."
+      }
+    }
+  },
+  "security": [
+    {
+      "sumeru_token": []
+    }
+  ]
+}
