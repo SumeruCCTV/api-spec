@@ -10,16 +10,192 @@
       "identifier": "GPL-3.0-or-later"
     }
   },
-  "servers": [],
-  "paths": {},
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "dev server"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "API Information",
+        "tags": [],
+        "operationId": "get-api-information",
+        "description": "Returns information about the currently running Sumeru instance.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "application": "sumeru",
+                      "version": "0.0.1"
+                    }
+                  },
+                  "properties": {
+                    "application": {
+                      "type": "string",
+                      "example": "sumeru",
+                      "pattern": "^[A-Za-z]$",
+                      "description": "The name of the application.",
+                      "readOnly": true
+                    },
+                    "version": {
+                      "type": "string",
+                      "description": "The version of the application. This must always comply with the SemVer specification.",
+                      "example": "0.0.1",
+                      "readOnly": true
+                    }
+                  },
+                  "required": [
+                    "application",
+                    "version"
+                  ]
+                },
+                "examples": {
+                  "OK": {
+                    "value": {
+                      "application": "sumeru",
+                      "version": "0.0.1"
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/health": {
+      "get": {
+        "summary": "API Health",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "services": [
+                        {
+                          "name": "db",
+                          "status": "healthy"
+                        },
+                        {
+                          "name": "web",
+                          "status": "healthy"
+                        },
+                        {
+                          "name": "camera",
+                          "status": "healthy"
+                        }
+                      ],
+                      "mem": "17.1 MB"
+                    }
+                  },
+                  "properties": {
+                    "services": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "description": "This array contains a list of objects which represent the status of a service.",
+                      "items": {
+                        "type": "object",
+                        "description": "This object represents the status of a service.",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Name of the service.",
+                            "pattern": "^[A-Za-z]$",
+                            "example": "web",
+                            "readOnly": true
+                          },
+                          "status": {
+                            "type": "string",
+                            "description": "Status of the service.",
+                            "example": "healthy",
+                            "enum": [
+                              "healthy",
+                              "unhealthy"
+                            ],
+                            "readOnly": true
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "status"
+                        ]
+                      }
+                    },
+                    "mem": {
+                      "type": "string",
+                      "description": "Current amount of memory allocated by the Go runtime.",
+                      "example": "17.1 MB",
+                      "readOnly": true
+                    }
+                  },
+                  "required": [
+                    "services",
+                    "mem"
+                  ]
+                },
+                "examples": {
+                  "OK": {
+                    "value": {
+                      "services": [
+                        {
+                          "name": "db",
+                          "status": "healthy"
+                        },
+                        {
+                          "name": "web",
+                          "status": "healthy"
+                        },
+                        {
+                          "name": "camera",
+                          "status": "unhealthy"
+                        }
+                      ],
+                      "mem": "17.1 MB"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-health",
+        "security": [],
+        "description": "Returns health information about the currently running Sumeru instance."
+      }
+    }
+  },
   "components": {
     "schemas": {},
     "securitySchemes": {
       "sumeru_token": {
         "name": "Token",
         "type": "apiKey",
-        "in": "query",
-        "description": "Your token is used to authenticate to the API. You can get one by logging in. The server will give you a token which is valid for 2 weeks, after which you have to log back in."
+        "in": "cookie",
+        "description": "A HTTPOnly Secure cookie containing the account token."
       }
     }
   },

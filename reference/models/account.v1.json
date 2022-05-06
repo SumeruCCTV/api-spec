@@ -1,0 +1,40 @@
+{
+  "description": "This model represents an account of a user.",
+  "type": "object",
+  "x-examples": {
+    "example-1": {
+      "uuid": "7KCLCfQm4cbfu8DLOEzaImDdsmJCjMu9",
+      "username": "Sculas"
+    }
+  },
+  "title": "Account",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "example": "7KCLCfQm4cbfu8DLOEzaImDdsmJCjMu9",
+      "pattern": "^[A-Za-z\\d]$",
+      "minLength": 32,
+      "maxLength": 32,
+      "description": "The UUID of the account.",
+      "readOnly": true
+    },
+    "username": {
+      "type": "string",
+      "minLength": 3,
+      "example": "Sculas",
+      "maxLength": 12,
+      "pattern": "^[A-Za-z\\d]$",
+      "description": "The username of the account."
+    }
+  },
+  "required": [
+    "uuid",
+    "username"
+  ],
+  "examples": [
+    {
+      "uuid": "7KCLCfQm4cbfu8DLOEzaImDdsmJCjMu9",
+      "username": "Sculas"
+    }
+  ]
+}
