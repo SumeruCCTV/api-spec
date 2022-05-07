@@ -146,11 +146,18 @@
                       "description": "Current amount of memory allocated by the Go runtime.",
                       "example": "17.1 MB",
                       "readOnly": true
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "The target heap size of the next GC cycle as specified by the Go runtime.",
+                      "example": "22.1 MB",
+                      "readOnly": true
                     }
                   },
                   "required": [
                     "services",
-                    "mem"
+                    "mem",
+                    "next"
                   ]
                 },
                 "examples": {
@@ -170,7 +177,8 @@
                           "status": "unhealthy"
                         }
                       ],
-                      "mem": "17.1 MB"
+                      "mem": "13.9 MB",
+                      "next": "22.1 MB"
                     }
                   }
                 }
@@ -180,7 +188,62 @@
         },
         "operationId": "get-api-health",
         "security": [],
-        "description": "Returns health information about the currently running Sumeru instance."
+        "description": "Returns health data about the currently running Sumeru instance."
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "summary": "Register Account",
+        "operationId": "post-auth-register",
+        "responses": {
+          "201": {
+            "description": "The account has been created and the user can now login using the specified credentials."
+          },
+          "409": {
+            "description": "An account with that username already exists."
+          }
+        },
+        "description": "Registers an account in the database. This is an unauthenticated-only request.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "./models/account.v1.json"
+                  },
+                  {
+                    "properties": {
+                      "captchaKey": {
+                        "type": "string",
+                        "description": "The captcha key.",
+                        "writeOnly": true
+                      }
+                    },
+                    "type": "object",
+                    "required": [
+                      "captchaKey"
+                    ]
+                  }
+                ]
+              },
+              "examples": {
+                "Example": {
+                  "value": {
+                    "username": "Sculas",
+                    "passwordHash": "$argon2id$v=19$m=65536,t=1,p=2$rSbj+PXkqb8WSczjV2TI/Q$otzq0VElr6J5Cz3Sii+uhWNn4uK0aT2b4I99sYEEROU",
+                    "captchaKey": "<your-captcha-key>"
+                  }
+                }
+              }
+            }
+          },
+          "description": "This body represents a partial account model.\nTo create an account, the user has to specify their username and a client-side Argon2id hashed password."
+        },
+        "tags": [
+          "auth"
+        ],
+        "security": []
       }
     }
   },
@@ -188,7 +251,7 @@
     "schemas": {},
     "securitySchemes": {
       "sumeru_token": {
-        "name": "Token",
+        "name": "sumeru_token",
         "type": "apiKey",
         "in": "cookie",
         "description": "A HTTPOnly Secure cookie containing the account token."

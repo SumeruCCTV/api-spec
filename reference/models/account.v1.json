@@ -8,11 +8,18 @@
     }
   },
   "title": "Account",
+  "examples": [
+    {
+      "uuid": "7KCLCfQm4cbfu8DLOEzaImDdsmJCjMu9",
+      "username": "Sculas",
+      "passwordHash": "$argon2id$v=19$m=65536,t=1,p=2$rSbj+PXkqb8WSczjV2TI/Q$otzq0VElr6J5Cz3Sii+uhWNn4uK0aT2b4I99sYEEROU"
+    }
+  ],
   "properties": {
     "uuid": {
       "type": "string",
       "example": "7KCLCfQm4cbfu8DLOEzaImDdsmJCjMu9",
-      "pattern": "^[A-Za-z\\d]$",
+      "pattern": "^[A-Za-z\\d]*$",
       "minLength": 32,
       "maxLength": 32,
       "description": "The UUID of the account.",
@@ -23,18 +30,26 @@
       "minLength": 3,
       "example": "Sculas",
       "maxLength": 12,
-      "pattern": "^[A-Za-z\\d]$",
+      "pattern": "^[A-Za-z\\d]*$",
       "description": "The username of the account."
+    },
+    "passwordHash": {
+      "type": "string",
+      "example": "$argon2id$v=19$m=65536,t=1,p=2$rSbj+PXkqb8WSczjV2TI/Q$otzq0VElr6J5Cz3Sii+uhWNn4uK0aT2b4I99sYEEROU",
+      "format": "password",
+      "description": "The Argon2id password hash of the account.",
+      "writeOnly": true
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Currently unused.",
+      "readOnly": true
     }
   },
   "required": [
     "uuid",
-    "username"
-  ],
-  "examples": [
-    {
-      "uuid": "7KCLCfQm4cbfu8DLOEzaImDdsmJCjMu9",
-      "username": "Sculas"
-    }
+    "username",
+    "passwordHash"
   ]
 }
