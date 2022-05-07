@@ -213,29 +213,11 @@
                     "$ref": "./models/account.v1.json"
                   },
                   {
-                    "properties": {
-                      "captchaKey": {
-                        "type": "string",
-                        "description": "The captcha key.",
-                        "writeOnly": true
-                      }
-                    },
-                    "type": "object",
-                    "required": [
-                      "captchaKey"
-                    ]
+                    "$ref": "./models/captcha.json"
                   }
                 ]
               },
-              "examples": {
-                "Example": {
-                  "value": {
-                    "username": "Sculas",
-                    "passwordHash": "$argon2id$v=19$m=65536,t=1,p=2$rSbj+PXkqb8WSczjV2TI/Q$otzq0VElr6J5Cz3Sii+uhWNn4uK0aT2b4I99sYEEROU",
-                    "captchaKey": "<your-captcha-key>"
-                  }
-                }
-              }
+              "examples": {}
             }
           },
           "description": "This body represents a partial account model.\nTo create an account, the user has to specify their username and a client-side Argon2id hashed password."
@@ -244,6 +226,57 @@
           "auth"
         ],
         "security": []
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login",
+        "operationId": "post-auth-login",
+        "responses": {
+          "200": {
+            "description": "Returns the token, which is valid for 2 weeks.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./models/token.v1.json"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid credentials were specified."
+          }
+        },
+        "description": "Logs a user in. This is an unauthenticated-only request.",
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "./models/account.v1.json"
+                  },
+                  {
+                    "$ref": "./models/captcha.json"
+                  }
+                ]
+              }
+            }
+          },
+          "description": "This body represents a partial account model.\nTo login, the user has to specify their username and a client-side Argon2id hashed password."
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "summary": "Logout",
+        "operationId": "post-auth-logout",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     }
   },

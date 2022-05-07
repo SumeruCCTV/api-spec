@@ -1,0 +1,19 @@
+{
+  "title": "Account Token",
+  "type": "object",
+  "description": "This model represents the token of an account.",
+  "properties": {
+    "token": {
+      "type": "string",
+      "minLength": 128,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z\\d]*$",
+      "format": "password",
+      "example": "C3JukkumOGUlYsynLVoEYgRafTpyk3WRaNz58ksmfZKYrkC2MffKosKkER4tOhT92cBezDPXKO16mXxCVhJ96oJNco8toX40i0wsorzCI2Gku4wE0aGOseDDCEoB0VVS",
+      "readOnly": true
+    }
+  },
+  "required": [
+    "token"
+  ]
+}

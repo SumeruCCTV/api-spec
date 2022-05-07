@@ -8,13 +8,7 @@
     }
   },
   "title": "Account",
-  "examples": [
-    {
-      "uuid": "7KCLCfQm4cbfu8DLOEzaImDdsmJCjMu9",
-      "username": "Sculas",
-      "passwordHash": "$argon2id$v=19$m=65536,t=1,p=2$rSbj+PXkqb8WSczjV2TI/Q$otzq0VElr6J5Cz3Sii+uhWNn4uK0aT2b4I99sYEEROU"
-    }
-  ],
+  "examples": [],
   "properties": {
     "uuid": {
       "type": "string",
