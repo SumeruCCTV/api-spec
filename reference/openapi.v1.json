@@ -211,9 +211,6 @@
                 "allOf": [
                   {
                     "$ref": "./models/account.v1.json"
-                  },
-                  {
-                    "$ref": "./models/captcha.json"
                   }
                 ]
               },
@@ -225,7 +222,12 @@
         "tags": [
           "auth"
         ],
-        "security": []
+        "security": [],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/captcha"
+          }
+        ]
       }
     },
     "/auth/login": {
@@ -256,16 +258,18 @@
                 "allOf": [
                   {
                     "$ref": "./models/account.v1.json"
-                  },
-                  {
-                    "$ref": "./models/captcha.json"
                   }
                 ]
               }
             }
           },
           "description": "This body represents a partial account model.\nTo login, the user has to specify their username and a client-side Argon2id hashed password."
-        }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/captcha"
+          }
+        ]
       }
     },
     "/auth/logout": {
@@ -274,9 +278,10 @@
         "operationId": "post-auth-logout",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "The user was successfully logged out."
           }
-        }
+        },
+        "description": "Logs a user out. This is an authenticated-only request."
       }
     }
   },
@@ -288,6 +293,17 @@
         "type": "apiKey",
         "in": "cookie",
         "description": "A HTTPOnly Secure cookie containing the account token."
+      }
+    },
+    "parameters": {
+      "captcha": {
+        "name": "X-Captcha-Key",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "If this header is applied to a route, it will enforce that a user specifies a captcha key to secure the route."
       }
     }
   },
