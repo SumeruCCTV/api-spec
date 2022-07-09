@@ -199,6 +199,9 @@
           "201": {
             "description": "The account has been created and the user can now login using the specified credentials."
           },
+          "400": {
+            "$ref": "#/components/responses/invalid-body"
+          },
           "409": {
             "description": "An account with that username already exists."
           }
@@ -208,16 +211,11 @@
           "content": {
             "application/json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "./models/account.v1.json"
-                  }
-                ]
-              },
-              "examples": {}
+                "$ref": "./models/account.v1.json"
+              }
             }
           },
-          "description": "This body represents a partial account model.\nTo create an account, the user has to specify their username and a client-side Argon2id hashed password."
+          "description": "This body represents a partial account model.\nTo create an account, the client has to specify their username and a client-side Argon2id hashed password."
         },
         "tags": [
           "auth"
@@ -246,7 +244,7 @@
             }
           },
           "400": {
-            "description": "Invalid credentials were specified."
+            "$ref": "#/components/responses/invalid-body"
           }
         },
         "description": "Logs a user in. This is an unauthenticated-only request.",
@@ -255,15 +253,11 @@
           "content": {
             "application/json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "./models/account.v1.json"
-                  }
-                ]
+                "$ref": "./models/account.v1.json"
               }
             }
           },
-          "description": "This body represents a partial account model.\nTo login, the user has to specify their username and a client-side Argon2id hashed password."
+          "description": "This body represents a partial account model.\nTo login, the client has to specify their username and a client-side Argon2id hashed password."
         },
         "parameters": [
           {
@@ -279,9 +273,60 @@
         "responses": {
           "200": {
             "description": "The user was successfully logged out."
+          },
+          "400": {
+            "$ref": "#/components/responses/invalid-body"
           }
         },
         "description": "Logs a user out. This is an authenticated-only request."
+      }
+    },
+    "/camera": {
+      "post": {
+        "summary": "Add a camera",
+        "operationId": "post-camera",
+        "responses": {
+          "201": {
+            "description": "The camera has now been added. The server will now try to connect in the background.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uuid": {
+                      "type": "string",
+                      "example": "7KCLCfQm4cbfu8DLOEzaImDdsmJCjMu9",
+                      "pattern": "^[A-Za-z\\d]*$",
+                      "minLength": 32,
+                      "maxLength": 32,
+                      "description": "The UUID of this camera."
+                    }
+                  },
+                  "required": [
+                    "uuid"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/invalid-body"
+          },
+          "409": {
+            "description": "A camera with that name already exists on the current user."
+          }
+        },
+        "description": "Adds a camera. This is an authenticated-only request.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./models/camera.v1.json"
+              }
+            }
+          },
+          "description": "This body represents a partial camera model.\nTo add a camera, the client has to specify a name and address for the camera."
+        }
       }
     }
   },
@@ -304,6 +349,51 @@
           "type": "string"
         },
         "description": "If this header is applied to a route, it will enforce that a user specifies a captcha key to secure the route."
+      }
+    },
+    "responses": {
+      "invalid-body": {
+        "description": "This response is sent when the client has sent an invalid request body.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "The error message.",
+                  "example": "invalid body",
+                  "readOnly": true
+                }
+              },
+              "required": [
+                "error"
+              ]
+            },
+            "examples": {
+              "Invalid body": {
+                "value": {
+                  "error": "invalid body"
+                }
+              },
+              "Invalid token": {
+                "value": {
+                  "error": "invalid token"
+                }
+              },
+              "Invalid username": {
+                "value": {
+                  "error": "invalid username"
+                }
+              },
+              "Invalid credentials": {
+                "value": {
+                  "error": "invalid credentials"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },

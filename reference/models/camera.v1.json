@@ -1,5 +1,8 @@
 {
-  "description": "This model represents an account of a user.",
+  "description": "This model represents a camera.",
+  "x-stoplight": {
+    "id": "njwrvxkdh5u4o"
+  },
   "type": "object",
   "x-examples": {
     "example-1": {
@@ -7,7 +10,7 @@
       "username": "Sculas"
     }
   },
-  "title": "Account",
+  "title": "Camera",
   "examples": [],
   "properties": {
     "uuid": {
@@ -16,23 +19,31 @@
       "pattern": "^[A-Za-z\\d]*$",
       "minLength": 32,
       "maxLength": 32,
-      "description": "The UUID of this account.",
+      "description": "The UUID of this camera.",
       "readOnly": true
     },
-    "username": {
+    "ownerUuid": {
+      "type": "string",
+      "example": "7KCLCfQm4cbfu8DLOEzaImDdsmJCjMu9",
+      "pattern": "^[A-Za-z\\d]*$",
+      "minLength": 32,
+      "maxLength": 32,
+      "description": "The UUID of the owner of this camera.",
+      "readOnly": true
+    },
+    "name": {
       "type": "string",
       "minLength": 3,
-      "example": "Sculas",
-      "maxLength": 12,
+      "example": "Garage Door",
+      "maxLength": 24,
       "pattern": "^[A-Za-z\\d]*$",
-      "description": "The username of this account."
+      "description": "The name of this camera."
     },
-    "passwordHash": {
+    "addr": {
       "type": "string",
-      "example": "$argon2id$v=19$m=65536,t=1,p=2$rSbj+PXkqb8WSczjV2TI/Q$otzq0VElr6J5Cz3Sii+uhWNn4uK0aT2b4I99sYEEROU",
+      "example": "192.168.1.69",
       "format": "password",
-      "description": "The Argon2id password hash of this account.",
-      "writeOnly": true
+      "description": "The IP address of this camera."
     },
     "createdAt": {
       "type": "string",
@@ -43,7 +54,8 @@
   },
   "required": [
     "uuid",
-    "username",
-    "passwordHash"
+    "ownerUuid",
+    "name",
+    "addr"
   ]
 }
