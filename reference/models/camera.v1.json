@@ -45,6 +45,22 @@
       "format": "password",
       "description": "The IP address of this camera."
     },
+    "port": {
+      "type": "integer",
+      "description": "The port of this camera.",
+      "example": "2020",
+      "minimum": 80,
+      "maximum": 65535
+    },
+    "type": {
+      "type": "integer",
+      "description": "The type of this camera.\nSupported values:\n\n0: unknown (internal)\n\n1: ONVIF\n\n2: RTSP",
+      "enum": [
+        1,
+        2
+      ],
+      "example": "1"
+    },
     "createdAt": {
       "type": "string",
       "format": "date-time",
@@ -56,6 +72,8 @@
     "uuid",
     "ownerUuid",
     "name",
-    "addr"
+    "addr",
+    "port",
+    "type"
   ]
 }

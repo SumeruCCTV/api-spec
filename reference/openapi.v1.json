@@ -325,7 +325,7 @@
               }
             }
           },
-          "description": "This body represents a partial camera model.\nTo add a camera, the client has to specify a name and address for the camera."
+          "description": "This body represents a partial camera model.\nTo add a camera, the client has to specify a name, address, port and type for the camera."
         }
       }
     }
