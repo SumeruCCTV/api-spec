@@ -36,7 +36,7 @@
       "minLength": 3,
       "example": "Garage Door",
       "maxLength": 24,
-      "pattern": "^[A-Za-z\\d]*$",
+      "pattern": "^[A-Za-z \\d]*$",
       "description": "The name of this camera."
     },
     "addr": {
