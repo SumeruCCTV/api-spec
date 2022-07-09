@@ -48,7 +48,7 @@
     "port": {
       "type": "integer",
       "description": "The port of this camera.",
-      "example": "2020",
+      "example": 2020,
       "minimum": 80,
       "maximum": 65535
     },
