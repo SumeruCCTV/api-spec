@@ -54,12 +54,11 @@
     },
     "type": {
       "type": "integer",
-      "description": "The type of this camera.\nSupported values:\n\n0: unknown (internal)\n\n1: ONVIF\n\n2: RTSP",
-      "example": 1,
+      "description": "The type of this camera.\nSupported values:\n\n0: ONVIF\n\n1: RTSP",
+      "example": 0,
       "enum": [
         0,
-        1,
-        2
+        1
       ]
     },
     "status": {
