@@ -1,2 +1,2 @@
-# api-spec
-The API spec of Sumeru.
+# Sumeru API Specification
+You can find the API docs [here](https://sumeru.stoplight.io/).
