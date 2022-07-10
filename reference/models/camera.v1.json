@@ -63,12 +63,13 @@
     },
     "status": {
       "type": "integer",
-      "description": "The status of this camera.\nSupported values:\n\n0: invalid\n\n1: disconnected\n\n2: connected",
-      "example": 2,
+      "description": "The status of this camera.\nSupported values:\n\n0: invalid\n\n1: connecting\n\n2: disconnected\n\n3: connected",
+      "example": 3,
       "enum": [
         0,
         1,
-        2
+        2,
+        3
       ],
       "readOnly": true
     },
