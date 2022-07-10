@@ -193,7 +193,7 @@
     },
     "/auth/register": {
       "post": {
-        "summary": "Register Account",
+        "summary": "Register",
         "operationId": "post-auth-register",
         "responses": {
           "201": {
@@ -217,14 +217,14 @@
           },
           "description": "This body represents a partial account model.\nTo create an account, the client has to specify their username and a client-side Argon2id hashed password."
         },
-        "tags": [
-          "auth"
-        ],
         "security": [],
         "parameters": [
           {
             "$ref": "#/components/parameters/captcha"
           }
+        ],
+        "tags": [
+          "Authentication API"
         ]
       }
     },
@@ -263,6 +263,9 @@
           {
             "$ref": "#/components/parameters/captcha"
           }
+        ],
+        "tags": [
+          "Authentication API"
         ]
       }
     },
@@ -278,7 +281,10 @@
             "$ref": "#/components/responses/invalid-body"
           }
         },
-        "description": "Logs a user out. This is an authenticated-only request."
+        "description": "Logs a user out. This is an authenticated-only request.",
+        "tags": [
+          "Authentication API"
+        ]
       }
     },
     "/camera": {
@@ -326,7 +332,10 @@
             }
           },
           "description": "This body represents a partial camera model.\nTo add a camera, the client has to specify a name, address, port and type for the camera."
-        }
+        },
+        "tags": [
+          "Camera API"
+        ]
       }
     }
   },
