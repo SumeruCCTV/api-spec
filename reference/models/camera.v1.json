@@ -55,11 +55,23 @@
     "type": {
       "type": "integer",
       "description": "The type of this camera.\nSupported values:\n\n0: unknown (internal)\n\n1: ONVIF\n\n2: RTSP",
+      "example": "1",
       "enum": [
+        0,
+        1,
+        2
+      ]
+    },
+    "status": {
+      "type": "integer",
+      "description": "The status of this camera.\nSupported values:\n\n0: invalid\n\n1: disconnected\n\n2: connected",
+      "example": 2,
+      "enum": [
+        0,
         1,
         2
       ],
-      "example": "1"
+      "readOnly": true
     },
     "createdAt": {
       "type": "string",
@@ -74,6 +86,7 @@
     "name",
     "addr",
     "port",
-    "type"
+    "type",
+    "status"
   ]
 }
