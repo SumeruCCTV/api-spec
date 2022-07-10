@@ -55,7 +55,7 @@
     "type": {
       "type": "integer",
       "description": "The type of this camera.\nSupported values:\n\n0: unknown (internal)\n\n1: ONVIF\n\n2: RTSP",
-      "example": "1",
+      "example": 1,
       "enum": [
         0,
         1,
@@ -73,6 +73,28 @@
       ],
       "readOnly": true
     },
+    "credentials": {
+      "type": "object",
+      "required": [
+        "username",
+        "password"
+      ],
+      "description": "The credentials for this camera.\nNote: camera credentials are stored plaintext.",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "The username to log into the camera.",
+          "writeOnly": true
+        },
+        "password": {
+          "type": "string",
+          "format": "password",
+          "description": "The password to log into the camera.",
+          "writeOnly": true
+        }
+      },
+      "writeOnly": true
+    },
     "createdAt": {
       "type": "string",
       "format": "date-time",
@@ -87,6 +109,7 @@
     "addr",
     "port",
     "type",
-    "status"
+    "status",
+    "credentials"
   ]
 }
